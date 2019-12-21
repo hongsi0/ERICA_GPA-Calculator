@@ -23,5 +23,15 @@
     $total += ($result1['class_credit'] * $score / $result['sum(class_credit)']);
   }
 
-  echo $total;
+  $total = round($total,2);
+  $studentname = $_POST['name'];
+
+  $sql = "insert into students (name,class_year,class_semester,total_grade) values ('$studentname',$year,$semester,$total)";
+  $stt = $db->prepare($sql);
+  $stt -> execute();
+
+  echo
+	"<script>
+			location.href='test.php';
+	</script>";
 ?>

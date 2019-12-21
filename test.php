@@ -9,7 +9,6 @@
 	?>
 	<title>Grade</title>
 	<link href="grade.css" type="text/css" rel="stylesheet" />
-
 </head>
 
 <body>
@@ -43,9 +42,9 @@
 		$count_stt -> execute();
 		$result = $count_stt->fetch(PDO::FETCH_ASSOC);
 		?>
-
+		<!-- <hr /> -->
 		<form id="gradeform" action="grade.
-		php?year=<?=$select_year?>&&semester=<?=$select_semester?>" method="post">
+		php?year=<?=$select_year?>&semester=<?=$select_semester?>" method="post">
 			<fieldset id="left">
 				<legend class="big"><?=$select_year?>학년 <?=$select_semester?>학기 학점 계산기</legend>
 					<div class="input_box">
@@ -60,10 +59,12 @@
 						$view_sql = "select class_name from class where class_year = '$select_year' and class_semester = '$select_semester'";
 						$view_stt=$db->prepare($view_sql);
 						$view_stt->execute();
+						$i = 1;
 						foreach ($view_stt as $view) { ?>
 							<div class="class">
 								<input type="text" name="select_class<?=$i?>" value="<?=$view['class_name']?>" />
 							</div>
+							<?php $i++ ?>
 						<?php } ?>
           </div>
 
@@ -102,8 +103,7 @@
 				$check_stt = $db->prepare($check_sql);
 				$check_stt->execute();
 				foreach($check_stt as $check) { ?>
-					<p>이름: <?=$check['name']?>님</p>
-					<p><?=$check['class_year']?>학년 <?=$check['class_semester']?>학기 <?=$check['total_grade']?>점 입니다.</p>
+					<p><?=$check['name']?>님의 <?=$check['class_year']?>학년 <?=$check['class_semester']?>학기 평점은 <span style="font-weight:bold"><?=$check['total_grade']?></span> 입니다.</p>
 				<?php } ?>
 		</fieldset>
 	</div>

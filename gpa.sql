@@ -1,10 +1,18 @@
 DROP TABLE IF EXISTS class;
+DROP TABLE IF EXISTS students;
 
 create table class (
   class_name  varchar(250)  not null primary key,
   class_credit int not null,
   class_year int not null,
   class_semester int not null
+);
+
+create table students (
+  name varchar(30) not null,
+  class_year int not null,
+  class_semester int not null,
+  total_grade float
 );
 
 insert into class (class_name,class_credit,class_year,class_semester) values
