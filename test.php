@@ -94,7 +94,18 @@
 				</div>
 			</fieldset>
 		</form>
-		
+
+		<fieldset id="right">
+			<legend class="big">학점 계산 결과</legend>
+			<?php
+				$check_sql = "select * from students";
+				$check_stt = $db->prepare($check_sql);
+				$check_stt->execute();
+				foreach($check_stt as $check) { ?>
+					<p>이름: <?=$check['name']?>님</p>
+					<p><?=$check['class_year']?>학년 <?=$check['class_semester']?>학기 <?=$check['total_grade']?>점 입니다.</p>
+				<?php } ?>
+		</fieldset>
 	</div>
 </body>
 
