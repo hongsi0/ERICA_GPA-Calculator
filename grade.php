@@ -3,6 +3,12 @@
   $db=connect();
   $year = $_GET['year'];
   $semester = $_GET['semester'];
+  $studentname = $_POST['name'];
+
+  $check_sql = "select name from students where name = '$studentname' and class_year = '$year' and class_semester = '$semester'";
+  $check_stt = $db->prepare($check_sql);
+  $check_stt -> execute();
+  $check = $check_stt->fetch(PDO::FETCH_ASSOC);
 
   $count_sql = "select count(*),sum(class_credit) from class where class_year = '$year' and class_semester = '$semester'";
   $count_stt = $db->prepare($count_sql);
@@ -24,11 +30,17 @@
   }
 
   $total = round($total,2);
-  $studentname = $_POST['name'];
 
-  $sql = "insert into students (name,class_year,class_semester,total_grade) values ('$studentname',$year,$semester,$total)";
-  $stt = $db->prepare($sql);
-  $stt -> execute();
+  if(!isset($check['name'])){
+    $sql = "insert into students (name,class_year,class_semester,total_grade) values ('$studentname',$year,$semester,$total)";
+    $stt = $db->prepare($sql);
+    $stt -> execute();
+  }
+  else {
+    $update_sql = "update students set total_grade = $total where name = '$studentname' and class_year = $year and class_semester = $semester";
+    $update_stt = $db->prepare($update_sql);
+    $update_stt -> execute();
+  }
 
   echo
 	"<script>
