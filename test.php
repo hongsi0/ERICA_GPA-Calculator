@@ -7,7 +7,7 @@
 	<?php include "DB_Connect.php";
 				$db=connect();
 	?>
-	<title>Grade</title>
+	<title>GPA Cal</title>
 	<link href="grade.css" type="text/css" rel="stylesheet" />
 </head>
 
@@ -29,11 +29,12 @@
 		</form>
 	</div>
 	<?php
-		$select = $_POST['semester'];
+		$select = 11;
+		if(isset($_POST['semester'])){
+			$select = $_POST['semester'];
+		}
 		$select_year = (int)($select / 10);
 		$select_semester = (int)($select % 10);
-		if(isset($_POST['semester']))
-			$select = 11;
 		?>
 	<div id="wrapper">
 		<?php

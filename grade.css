@@ -4,6 +4,10 @@
 	margin-right: auto;
 }
 
+#gogobutton {
+	width: 100px;
+}
+
 .btn {
 	float: right;
 	padding-top: 20px;
@@ -30,6 +34,8 @@ select {
 }
 
 .right_box {
+	float: right;
+	margin-right: 50px;
 	width: 200px;
 }
 
